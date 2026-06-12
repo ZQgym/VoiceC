@@ -1,4 +1,5 @@
 <template>
+  <ParticleBackground />
   <div class="app-container">
     <CanvasArea ref="canvasRef" />
     <ControlPanel
@@ -22,6 +23,7 @@
 
 <script setup>
 import { ref, provide } from 'vue'
+import ParticleBackground from './components/ParticleBackground.vue'
 import CanvasArea from './components/CanvasArea.vue'
 import ControlPanel from './components/ControlPanel.vue'
 import { useSpeechRecognition } from './composables/useSpeechRecognition'

@@ -297,6 +297,25 @@ LLM System Prompt 包含布局规则，确保：
 - **API Key 配置**：页面内折叠面板，运行时修改，`localStorage` 持久化
 - **画布元素列表**：显示所有已绘制图形的类型/ID/颜色/文字
 - **浏览器兼容性警告**：非 Chrome/Edge 浏览器提示降级方案
+- **粒子动效背景**：全屏 Canvas 2D 粒子系统，可交互（鼠标吸引 + 点击爆发），霓虹发光效果，深色背景 + 面板毛玻璃叠加
+
+---
+
+## 视觉动效
+
+应用底部使用 **Canvas 2D 粒子系统** 作为背景，提升整体视觉体验：
+
+| 特性 | 说明 |
+|------|------|
+| **粒子数量** | 90 个彩色粒子，带白色核心 + 彩色光晕 (霓虹效果) |
+| **颜色方案** | 亮靛蓝 / 紫 / 粉紫 / 天蓝 / 青 / 粉 |
+| **混合模式** | `lighter` 叠加发光，粒子重叠区域更亮 |
+| **粒子连线** | 180px 范围内自动连线，靠近鼠标时变亮 |
+| **鼠标吸引** | 150px 半径内粒子被光标吸引并放大 |
+| **点击爆发** | 点击位置粒子向外扩散 + 生成 10 个火花粒子 |
+| **毛玻璃面板** | 画布区和控制面板使用 `backdrop-filter: blur()` 半透明效果 |
+
+> 视觉层级：粒子背景 (z-index: 0) → 毛玻璃面板 (z-index: 1)
 
 ---
 
@@ -322,6 +341,7 @@ voicec/
 │   ├── step8-config.md             # 项目配置与部署验证
 │   ├── step9-fix.md                # Bug 修复记录
 │   ├── step10-changes.md           # 修改变更记录
+│   ├── step11-particle.md          # 粒子动效背景
 │   ├── commands-manual.md          # 语音指令完整手册
 │   └── design-doc.md               # 独立设计文档
 └── src/
@@ -330,7 +350,8 @@ voicec/
     ├── style.css                   # 全局样式
     ├── components/
     │   ├── CanvasArea.vue          # Fabric.js 画布 (鼠标操作已禁用)
-    │   └── ControlPanel.vue        # 控制面板 (麦克风+状态+配置)
+    │   ├── ControlPanel.vue        # 控制面板 (麦克风+状态+配置)
+    │   └── ParticleBackground.vue  # 可交互粒子动效背景
     ├── composables/
     │   └── useSpeechRecognition.js # 语音识别 Hook
     └── utils/
