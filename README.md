@@ -342,6 +342,7 @@ voicec/
 │   ├── step9-fix.md                # Bug 修复记录
 │   ├── step10-changes.md           # 修改变更记录
 │   ├── step11-particle.md          # 粒子动效背景
+│   ├── step12-fix-duplicate.md     # 修复指令重复执行 Bug
 │   ├── commands-manual.md          # 语音指令完整手册
 │   └── design-doc.md               # 独立设计文档
 └── src/

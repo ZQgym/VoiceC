@@ -49,7 +49,13 @@ const simpleCommands = {
 }
 
 // ---- 语音识别回调 ----
-function onSpeechResult(text) {
+// onDisplay: 仅更新 UI 展示，不触发指令执行
+function onSpeechDisplay(text) {
+  recognizedText.value = text
+}
+
+// onFinal: 识别结束后的最终回调，触发指令执行
+function onSpeechFinal(text) {
   recognizedText.value = text
   handleUserInput(text)
 }
@@ -71,7 +77,12 @@ function speakMessage(message) {
 }
 
 // ---- 核心：处理用户输入 ----
+const isProcessing = ref(false)
+
 async function handleUserInput(text) {
+  // 防重入：正在处理中时忽略新请求
+  if (isProcessing.value) return
+
   const trimmed = text.trim()
   if (!trimmed) return
 
@@ -99,6 +110,7 @@ async function handleUserInput(text) {
   }
 
   // 复杂指令：调用 LLM
+  isProcessing.value = true
   aiStatus.value = 'AI 思考中...'
   try {
     const canvasState = canvasRef.value?.getCanvasState() || []
@@ -121,6 +133,8 @@ async function handleUserInput(text) {
   } catch (err) {
     console.error('处理指令异常:', err)
     aiStatus.value = '处理异常: ' + err.message
+  } finally {
+    isProcessing.value = false
   }
 }
 
@@ -129,7 +143,7 @@ function refreshObjectList() {
 }
 
 // ---- 麦克风切换 ----
-const { start, stop, isSupported: isASRSupported } = useSpeechRecognition(onSpeechResult, onSpeechError)
+const { start, stop, isSupported: isASRSupported } = useSpeechRecognition(onSpeechDisplay, onSpeechFinal, onSpeechError)
 
 function handleToggleMic() {
   if (!isASRSupported) {

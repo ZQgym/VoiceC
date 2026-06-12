@@ -162,12 +162,17 @@ const props = defineProps({
 const emit = defineEmits(['toggleMic', 'updateApiKey', 'updateApiUrl', 'updateModel', 'submitText'])
 
 const textInput = ref('')
+const isSubmitting = ref(false)
 
 function submitText() {
+  if (isSubmitting.value) return
   const val = textInput.value.trim()
   if (!val) return
+  isSubmitting.value = true
   emit('submitText', val)
   textInput.value = ''
+  // 短暂延迟后解锁，等父组件开始处理后即可接受新输入
+  setTimeout(() => { isSubmitting.value = false }, 300)
 }
 
 // 各厂商默认 API 地址
