@@ -49,7 +49,7 @@ Fabric.js 渲染 → Canvas 更新
     ↓ (仅 clarify 时)
 TTS 语音反馈播报
 ```
-![alt text](image.png)
+![alt text](demo.png)
 ---
 
 ## 快速开始
