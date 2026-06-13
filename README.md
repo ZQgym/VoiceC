@@ -28,6 +28,7 @@
 | **前端框架** | Vue 3 + Vite |
 | **绘图引擎** | Fabric.js |
 | **语音识别 (ASR)** | 浏览器原生 Web Speech API |
+| **Demo 展示视频** | [Bilibili 观看](https://www.bilibili.com/video/BV197JJ6cEN7/) |
 | **语音合成 (TTS)** | 浏览器原生 SpeechSynthesis |
 | **AI 大脑 (LLM)** | OpenAI / DeepSeek / GLM / 任意兼容 API |
 
